@@ -6,7 +6,8 @@ const setupInput = function(conn) {
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
   stdin.resume();
-  const handleUserInput = process.stdin.on('data', (key) => {
+  
+  const handleUserInput = key => {
     if (key === '\u0003') {
       process.exit();
     }
@@ -21,7 +22,13 @@ const setupInput = function(conn) {
     }
     if (key === 'd') {
       conn.write('Move: right');
-    }
+      }
+    if (key === 'e') {
+      conn.write('Say: Roger Roger')
+      }
+    };
+    stdin.on('data', (data) => {
+      handleUserInput(data);
   });
   return stdin;
 };
